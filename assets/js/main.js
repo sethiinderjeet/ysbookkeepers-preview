@@ -1,5 +1,5 @@
 (function () {
-  var desktop = window.matchMedia('(min-width: 1140px)');
+  var desktop = window.matchMedia('(min-width: 1180px)');
 
   // Desktop dropdowns: click/keyboard toggle (hover is handled in CSS)
   var items = document.querySelectorAll('.nav-item.has-dd');
@@ -70,6 +70,22 @@
       if (to) { window.location.href = to; return; }
       var ok = f.parentElement.querySelector('.form-success');
       if (ok) { f.style.display = 'none'; ok.classList.add('show'); }
+    });
+  });
+
+  // Pricing: Health & Wellness / Other Industries toggle
+  var tabs = document.querySelectorAll('.toggle-btn');
+  tabs.forEach(function (t) {
+    t.addEventListener('click', function () {
+      tabs.forEach(function (o) {
+        var on = o === t;
+        o.setAttribute('aria-selected', String(on));
+        var panel = document.getElementById(o.getAttribute('data-target'));
+        if (panel) {
+          panel.hidden = !on;
+          if (on) panel.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+        }
+      });
     });
   });
 
