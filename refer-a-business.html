@@ -70,11 +70,11 @@
 <section class="section-tight" style="padding-top:0"><div class="container container-narrow">
   <div class="form-card reveal">
     <form class="form-grid" method="post" action="/ysbookkeepers-preview/forms/send" data-endpoint="/ysbookkeepers-preview/forms/send" novalidate>
-      <input type="hidden" name="form" value="referral"><div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off"></label></div>
-      <div class="two"><div class="field"><label for="r-name">Your Name</label><input id="r-name" name="your_name" autocomplete="name" required></div>
-      <div class="field"><label for="r-email">Your Email</label><input id="r-email" type="email" name="your_email" autocomplete="email" inputmode="email" data-validate="email" placeholder="name@example.com" maxlength="200" aria-describedby="r-email-err" required><p class="field-error" id="r-email-err" aria-live="polite"></p></div></div>
-      <div class="two"><div class="field"><label for="r-rname">Referral’s Name</label><input id="r-rname" name="referral_name" required></div>
-      <div class="field"><label for="r-remail">Referral’s Email</label><input id="r-remail" type="email" name="referral_email" inputmode="email" data-validate="email" placeholder="name@example.com" maxlength="200" aria-describedby="r-remail-err" required><p class="field-error" id="r-remail-err" aria-live="polite"></p></div></div>
+      <input type="hidden" name="form" value="referral"><div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off" maxlength="100"></label></div>
+      <div class="two"><div class="field"><label for="r-name">Your Name</label><input id="r-name" name="your_name" maxlength="100" autocomplete="name" required></div>
+      <div class="field"><label for="r-email">Your Email</label><input id="r-email" type="email" name="your_email" maxlength="254" autocomplete="email" inputmode="email" data-validate="email" placeholder="name@example.com" aria-describedby="r-email-err" required><p class="field-error" id="r-email-err" aria-live="polite"></p></div></div>
+      <div class="two"><div class="field"><label for="r-rname">Referral’s Name</label><input id="r-rname" name="referral_name" maxlength="100" required></div>
+      <div class="field"><label for="r-remail">Referral’s Email</label><input id="r-remail" type="email" name="referral_email" maxlength="254" inputmode="email" data-validate="email" placeholder="name@example.com" aria-describedby="r-remail-err" required><p class="field-error" id="r-remail-err" aria-live="polite"></p></div></div>
       <button class="btn btn-primary btn-block" type="submit">Submit Referral <svg class="i " viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
       <p class="form-note">For active monthly-plan clients. Credits have no cash value and are applied to future invoices.</p>
     </form>

@@ -119,6 +119,56 @@
     checkField(input, false);
   });
 
+  // Phone boxes accept only digits, spaces and ( ) + - .
+  document.querySelectorAll('[data-validate="phone"]').forEach(function (input) {
+    // Filter typed/pasted text BEFORE it goes in, so the length limit counts only real phone characters
+    input.addEventListener('beforeinput', function (e) {
+      if (!e.data || !/^insert/.test(e.inputType)) return;
+      var clean = e.data.replace(/[^0-9\s().+-]/g, '');
+      if (clean === e.data) return;
+      e.preventDefault();
+      var room = input.maxLength - (input.value.length - (input.selectionEnd - input.selectionStart));
+      input.setRangeText(clean.slice(0, Math.max(0, room)), input.selectionStart, input.selectionEnd, 'end');
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    input.addEventListener('paste', function (e) {
+      var text = (e.clipboardData || window.clipboardData).getData('text') || '';
+      var clean = text.replace(/[^0-9\s().+-]/g, '').trim();
+      if (clean === text) return;
+      e.preventDefault();
+      var room = input.maxLength - (input.value.length - (input.selectionEnd - input.selectionStart));
+      input.setRangeText(clean.slice(0, Math.max(0, room)), input.selectionStart, input.selectionEnd, 'end');
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    input.addEventListener('input', function () {
+      var cleaned = input.value.replace(/[^0-9\s().+-]/g, '');
+      if (cleaned !== input.value) input.value = cleaned;
+    });
+  });
+
+  // Character counter under long text boxes (e.g. "120 / 2000")
+  document.querySelectorAll('textarea[maxlength]').forEach(function (ta) {
+    var max = +ta.getAttribute('maxlength'), c = document.createElement('p');
+    c.className = 'char-count'; c.setAttribute('aria-live', 'polite');
+    ta.after(c);
+    function upd() { c.textContent = ta.value.length + ' / ' + max; c.classList.toggle('near', ta.value.length > max * 0.9); }
+    ta.addEventListener('input', upd); upd();
+  });
+
+  // ActiveCampaign guide form (loaded by their script): add max lengths to its fields once it appears
+  var ac = document.getElementById('get-guide');
+  if (ac && 'MutationObserver' in window) {
+    var AC_LIMITS = { firstname: 50, lastname: 50, email: 254 };
+    var applyAc = function () {
+      Object.keys(AC_LIMITS).forEach(function (n) {
+        var el = ac.querySelector('input[name="' + n + '"]');
+        if (el && !el.hasAttribute('maxlength')) el.setAttribute('maxlength', AC_LIMITS[n]);
+      });
+    };
+    new MutationObserver(applyAc).observe(ac, { childList: true, subtree: true });
+    applyAc();
+  }
+
   // Contact / referral forms: sent by the Python form mailer at /forms/send
   document.querySelectorAll('form[data-endpoint]').forEach(function (f) {
     f.addEventListener('submit', function (e) {
