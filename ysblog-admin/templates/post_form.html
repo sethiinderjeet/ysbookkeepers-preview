@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% set p = post or {} %}
+{% block title %}{{ 'Edit post' if post_id else 'New post' }}{% endblock %}
+{% block head %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jodit@4.18.12/es2021/jodit.fat.min.css">
+{% endblock %}
+{% block content %}
+<div class="head-row">
+  <h1>{{ 'Edit post' if post_id else 'New post' }}</h1>
+  {% if post_id and p.status == 'published' %}<a href="{{ site_url(p.path) }}" target="_blank" rel="noopener">View live post ↗</a>{% endif %}
+</div>
+
+<form method="post" enctype="multipart/form-data" class="post-form" id="post-form">
+  <input type="hidden" name="csrf" value="{{ csrf_token() }}">
+  <input type="hidden" name="image_current" value="{{ p.image or '' }}">
+
+  <div class="cols">
+    <div class="main-col">
+      <label>Title<input name="title" id="title" value="{{ p.title or '' }}" required maxlength="160"></label>
+      <label>Summary <small>shown on the blog list and in Google results (about 150 characters)</small>
+        <textarea name="excerpt" rows="2" maxlength="300">{{ p.excerpt or '' }}</textarea></label>
+
+      <label class="editor-label">Article</label>
+      <textarea name="body" id="body">{{ p.body or '' }}</textarea>
+      <p class="muted small">Use “Heading 2” for section titles. Images: click the image button in the toolbar and upload. Tables, links and lists are in the toolbar too.</p>
+
+      <details class="panel extras" {% if p.cta_h2 or p.cta_body %}open{% endif %}>
+        <summary>Box at the end of the post (optional)</summary>
+        <label>Heading<input name="cta_h2" maxlength="120" value="{{ p.cta_h2 or '' }}" placeholder="Have a question about your own situation?"></label>
+        <label>Text <small>blank = standard text</small><textarea name="cta_body" rows="4" maxlength="1000">{{ p.cta_body or '' }}</textarea></label>
+      </details>
+    </div>
+
+    <aside class="side-col">
+      <div class="panel">
+        <div class="status-line">Status: <span class="pill {{ p.status or 'draft' }}">{{ 'Published' if p.status == 'published' else 'Draft' }}</span></div>
+        <div class="publish-actions">
+          <button class="btn" name="action" value="publish">{{ 'Update live post' if p.status == 'published' else 'Publish' }}</button>
+          {% if p.status == 'published' %}
+            <button class="btn ghost" name="action" value="unpublish">Unpublish</button>
+          {% else %}
+            <button class="btn ghost" name="action" value="draft">Save draft</button>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="panel">
+        <label>Web address<span class="slug-wrap"><span class="muted">/resources/blog/</span><input name="slug" id="slug" maxlength="80" value="{{ p.slug or '' }}" placeholder="from-the-title"></span></label>
+        <label>Category<input name="category" list="cats" maxlength="60" value="{{ p.category or '' }}">
+          <datalist id="cats">{% for c in categories %}<option value="{{ c }}">{% endfor %}</datalist></label>
+        <div class="two">
+          <label>Date<input type="date" name="date" value="{{ p.date or today }}"></label>
+          <label>Shown as<select name="date_label">
+            {% for o in ['Published', 'Updated'] %}<option {% if (p.date_label or 'Published') == o %}selected{% endif %}>{{ o }}</option>{% endfor %}
+          </select></label>
+        </div>
+        <label>Reading time <small>blank = automatic</small><input name="read_time" maxlength="20" value="{{ p.read_time or '' }}" placeholder="e.g. 5 min read"></label>
+      </div>
+
+      <div class="panel">
+        <label>Featured image</label>
+        <img id="img-preview" class="img-preview" src="{{ p.image or '' }}" alt="" {% if not p.image %}hidden{% endif %}>
+        <input type="file" name="image_file" id="image_file" accept="image/jpeg,image/png,image/webp,image/gif">
+        <label>Image description <small>for screen readers and Google</small><input name="image_alt" maxlength="200" value="{{ p.image_alt or '' }}"></label>
+      </div>
+
+      <div class="panel">
+        <label>Google title <small>blank = post title</small><input name="seo_title" value="{{ p.seo_title or '' }}" maxlength="70"></label>
+        <label class="check"><input type="checkbox" name="guide_box" value="1" {% if p.guide_box %}checked{% endif %}> Show the free Incorporation Guide box <small>(where the article contains &lt;!--GUIDE_BOX--&gt;)</small></label>
+      </div>
+    </aside>
+  </div>
+</form>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/jodit@4.18.12/es2021/jodit.fat.min.js"></script>
+<script>
+(function () {
+  var csrf = {{ csrf_token()|tojson }};
+  var editor = Jodit.make('#body', {
+    height: 640,
+    toolbarAdaptive: false,
+    askBeforePasteHTML: false,
+    askBeforePasteFromWord: false,
+    defaultActionOnPaste: 'insert_clear_html',
+    buttons: ['paragraph', 'bold', 'italic', 'underline', '|', 'ul', 'ol', 'outdent', 'indent', '|',
+              'link', 'image', 'table', 'hr', '|', 'align', '|', 'undo', 'redo', '|', 'source', 'fullsize'],
+    controls: { paragraph: { list: { p: 'Normal text', h2: 'Heading 2', h3: 'Heading 3', blockquote: 'Quote' } } },
+    uploader: {
+      url: {{ url_for('admin.upload')|tojson }},
+      headers: { 'X-CSRF-Token': csrf },
+      insertImageAsBase64URI: false,
+      imagesExtensions: ['jpg', 'jpeg', 'png', 'gif', 'webp']
+    },
+    link: { openInNewTabCheckbox: true, noFollowCheckbox: false }
+  });
+
+  // Web address follows the title until it is edited by hand
+  var title = document.getElementById('title'), slug = document.getElementById('slug');
+  var touched = !!slug.value;
+  slug.addEventListener('input', function () { touched = true; });
+  title.addEventListener('input', function () {
+    if (!touched) slug.value = title.value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 80);
+  });
+
+  // Preview a newly chosen featured image
+  var file = document.getElementById('image_file'), prev = document.getElementById('img-preview');
+  file.addEventListener('change', function () {
+    if (file.files[0]) { prev.src = URL.createObjectURL(file.files[0]); prev.hidden = false; }
+  });
+
+  // Warn before leaving with unsaved changes
+  var dirty = false, form = document.getElementById('post-form');
+  form.addEventListener('input', function () { dirty = true; });
+  editor.events.on('change', function () { dirty = true; });
+  form.addEventListener('submit', function () { dirty = false; });
+  window.addEventListener('beforeunload', function (e) { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
+})();
+</script>
+{% endblock %}
