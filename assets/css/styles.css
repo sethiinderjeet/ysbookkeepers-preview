@@ -572,3 +572,65 @@ table.addons { min-width: 0; }
 .f-links .i, .checks .i, .list-check .i { color: var(--brand); }
 .btn { max-width: 100%; }
 @media (max-width: 520px) { .btn { white-space: normal; height: auto; min-height: 3rem; padding-block: .65rem; text-align: center; line-height: 1.3; } }
+
+/* ===================== Oct 29 review updates ===================== */
+/* "How we work" step tags stay on the title line, right-aligned, on every page */
+.step-head { flex-wrap: nowrap; align-items: flex-start; }
+.step-head h3, .step-head h4 { flex: 1 1 auto; min-width: 0; }
+.step-meta { flex: 0 0 auto; white-space: nowrap; margin-top: .1rem; }
+@media (max-width: 520px) { .step-head { flex-direction: column; align-items: flex-start; gap: .4rem; } }
+
+/* Google reviews */
+.reviews { align-items: stretch; }
+.review-card { gap: 1.1rem; }
+.review-card blockquote { font-size: .98rem; line-height: 1.7; color: var(--heading); flex: 1; }
+.stars { display: flex; gap: .15rem; }
+.stars svg { width: 1.1rem; height: 1.1rem; fill: #E8A317; }
+
+/* Footer */
+.footer-brand img { height: 96px; width: 134px; }
+.socials { display: flex; gap: .6rem; margin-top: 1.25rem; }
+.socials a, .socials span { display: grid; place-items: center; width: 2.4rem; height: 2.4rem; border-radius: 999px; border: 1px solid var(--border); background: #fff; color: var(--brand); transition: background-color .2s, color .2s; }
+.socials a:hover { background: var(--brand); color: #fff; }
+.socials span.soon { opacity: .55; cursor: default; }
+.footer-bottom a { text-decoration: underline; text-underline-offset: 3px; }
+.footer-bottom a:hover { color: var(--brand); }
+.logo img { height: 68px; width: 95px; }
+
+/* Incorporation guide page */
+.guide-sub { margin-top: .75rem; font-family: var(--font-serif); font-weight: 600; font-size: 1.25rem; color: var(--brand); }
+.ac-form-card { min-height: 24rem; }
+/* ActiveCampaign form 15, restyled to match the site */
+#get-guide.ac-form-card.form-card ._form_15, #get-guide.ac-form-card.form-card form._form { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; background: transparent !important; border: 0 !important; box-shadow: none !important; font-family: var(--font-sans) !important; color: var(--body) !important; }
+#get-guide.ac-form-card.form-card ._form-title { font-family: var(--font-serif) !important; font-size: 1.5rem !important; font-weight: 600 !important; color: var(--heading) !important; }
+#get-guide.ac-form-card.form-card ._html-code, #get-guide.ac-form-card.form-card ._html-code * { font-family: var(--font-sans) !important; color: var(--body) !important; }
+#get-guide.ac-form-card.form-card ._form_element { margin-bottom: 1rem !important; }
+#get-guide.ac-form-card.form-card ._form-label, #get-guide.ac-form-card.form-card label { font-family: var(--font-sans) !important; font-size: .85rem !important; font-weight: 600 !important; color: var(--heading) !important; margin-bottom: .4rem !important; }
+#get-guide.ac-form-card.form-card input[type="text"], #get-guide.ac-form-card.form-card input[type="email"], #get-guide.ac-form-card.form-card input[type="tel"], #get-guide.ac-form-card.form-card select, #get-guide.ac-form-card.form-card textarea {
+  width: 100% !important; height: auto !important; font-family: var(--font-sans) !important; font-size: .95rem !important; color: var(--heading) !important;
+  background: var(--background) !important; border: 1px solid var(--border) !important; border-radius: .75rem !important; padding: .8rem 1rem !important; box-shadow: none !important; }
+#get-guide.ac-form-card.form-card input:focus, #get-guide.ac-form-card.form-card select:focus, #get-guide.ac-form-card.form-card textarea:focus { outline: none !important; border-color: var(--brand) !important; box-shadow: 0 0 0 3px var(--ring) !important; }
+#get-guide.ac-form-card.form-card input[type="checkbox"] { accent-color: var(--brand); width: auto !important; }
+#get-guide.ac-form-card.form-card ._checkbox-radio label, #get-guide.ac-form-card.form-card ._row label { font-weight: 400 !important; color: var(--body) !important; font-size: .8rem !important; }
+#get-guide.ac-form-card.form-card ._submit, #get-guide.ac-form-card.form-card button[type="submit"] {
+  width: 100% !important; height: 3rem !important; padding: 0 1.75rem !important; border: 0 !important; border-radius: 999px !important;
+  background: var(--brand) !important; color: #fff !important; font-family: var(--font-sans) !important; font-size: 1rem !important; font-weight: 600 !important; cursor: pointer; }
+#get-guide.ac-form-card.form-card ._submit:hover, #get-guide.ac-form-card.form-card button[type="submit"]:hover { background: var(--brand-dark) !important; }
+#get-guide.ac-form-card.form-card ._form-thank-you { font-family: var(--font-sans) !important; font-size: 1.05rem !important; color: var(--brand-dark) !important; background: var(--sage) !important; border-radius: 1rem; padding: 1.5rem !important; text-align: center; }
+#get-guide.ac-form-card.form-card ._error-inner { font-family: var(--font-sans) !important; border-radius: .5rem !important; }
+#get-guide.ac-form-card.form-card ._form-branding { display: none !important; }
+
+/* AC styles select/textarea via :is(), which ties with the rules above - one more class wins */
+#get-guide.ac-form-card.form-card ._form_element select, #get-guide.ac-form-card.form-card ._form_element textarea {
+  color: var(--heading) !important; font-family: var(--font-sans) !important; font-size: .95rem !important;
+  background-color: var(--background) !important; border: 1px solid var(--border) !important; border-radius: .75rem !important; }
+
+/* Website forms */
+.hp { position: absolute !important; left: -9999px !important; width: 1px; height: 1px; overflow: hidden; }
+.form-error { color: #B42318; background: #FEF3F2; border: 1px solid #FECDCA; border-radius: .75rem; padding: .75rem 1rem; font-size: .9rem; }
+.form-error:empty { display: none; }
+
+/* Legal pages */
+.legal-page { padding-bottom: 4rem; }
+.legal-page .prose { font-size: 1rem; }
+.legal-page .prose h2 { font-size: 1.35rem; margin-top: 2.25rem; }

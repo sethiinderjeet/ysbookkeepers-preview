@@ -73,6 +73,30 @@
     });
   });
 
+  // Contact / referral forms: sent by /forms/send.php (PHP mail on the web host)
+  document.querySelectorAll('form[data-endpoint]').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!f.reportValidity()) return;
+      var btn = f.querySelector('[type=submit]'), err = f.querySelector('.form-error');
+      if (!err) { err = document.createElement('p'); err.className = 'form-error'; err.setAttribute('role', 'alert'); btn.after(err); }
+      err.textContent = '';
+      btn.disabled = true;
+      fetch(f.getAttribute('data-endpoint'), { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (!res.ok) throw new Error(res.error || '');
+          var ok = f.parentElement.querySelector('.form-success');
+          f.style.display = 'none';
+          if (ok) { ok.classList.add('show'); ok.setAttribute('tabindex', '-1'); ok.focus(); }
+        })
+        .catch(function (x) {
+          err.textContent = (x && x.message) || 'Sorry, your message could not be sent. Please email us at hello@ystaxadvisory.ca or call 778-503-8310.';
+          btn.disabled = false;
+        });
+    });
+  });
+
   // Pricing: Health & Wellness / Other Industries toggle
   var tabs = document.querySelectorAll('.toggle-btn');
   tabs.forEach(function (t) {
