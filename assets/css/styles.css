@@ -634,3 +634,6 @@ table.addons { min-width: 0; }
 .legal-page { padding-bottom: 4rem; }
 .legal-page .prose { font-size: 1rem; }
 .legal-page .prose h2 { font-size: 1.35rem; margin-top: 2.25rem; }
+.field-error { font-size: .8rem; color: #B42318; margin: .1rem 0 0; }
+.field-error:empty { display: none; }
+.field input[aria-invalid="true"] { border-color: #B42318; box-shadow: 0 0 0 3px rgba(180, 35, 24, .12); background: #fff; }

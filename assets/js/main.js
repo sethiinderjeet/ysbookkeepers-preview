@@ -73,10 +73,59 @@
     });
   });
 
-  // Contact / referral forms: sent by /forms/send.php (PHP mail on the web host)
+  // Field validation: email and phone (the server checks again)
+  var EMAIL_RE = /^[A-Za-z0-9._%+'-]+@[A-Za-z0-9-]+(\.[A-Za-z0-9-]+)*\.[A-Za-z]{2,}$/;
+  function phoneDigits(v) {
+    if (/[^0-9\s().+-]/.test(v)) return null;           // letters or other symbols
+    var d = v.replace(/\D/g, '');
+    if (d.length === 11 && d.charAt(0) === '1') d = d.slice(1);
+    return /^[2-9]\d{2}[2-9]\d{6}$/.test(d) ? d : null;  // North American 10-digit number
+  }
+  var CHECKS = {
+    email: function (input) {
+      var v = input.value.trim();
+      if (!v) return 'Please enter your email address.';
+      if (!EMAIL_RE.test(v) || v.indexOf('..') !== -1) return 'Please enter a valid email address, e.g. name@example.com.';
+      return '';
+    },
+    phone: function (input) {
+      var v = input.value.trim();
+      if (!v) return 'Please enter your phone number.';
+      return phoneDigits(v) ? '' : 'Please enter a valid 10-digit phone number, e.g. 604-555-1234.';
+    }
+  };
+  function checkField(input, show) {
+    var msg = CHECKS[input.getAttribute('data-validate')](input);
+    input.setCustomValidity(msg);
+    var err = document.getElementById(input.getAttribute('aria-describedby'));
+    if (show) {
+      input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+      if (err) err.textContent = msg;
+    } else if (!msg) {
+      input.removeAttribute('aria-invalid');
+      if (err) err.textContent = '';
+    }
+    return !msg;
+  }
+  document.querySelectorAll('[data-validate]').forEach(function (input) {
+    input.addEventListener('blur', function () {
+      if (input.value.trim() === '') return;
+      if (checkField(input, true) && input.getAttribute('data-validate') === 'phone') {
+        var d = phoneDigits(input.value.trim());
+        input.value = d.slice(0, 3) + '-' + d.slice(3, 6) + '-' + d.slice(6);   // tidy to 604-555-1234
+      }
+    });
+    input.addEventListener('input', function () { checkField(input, input.getAttribute('aria-invalid') === 'true'); });
+    checkField(input, false);
+  });
+
+  // Contact / referral forms: sent by the Python form mailer at /forms/send
   document.querySelectorAll('form[data-endpoint]').forEach(function (f) {
     f.addEventListener('submit', function (e) {
       e.preventDefault();
+      var fieldsOk = true;
+      f.querySelectorAll('[data-validate]').forEach(function (input) { if (!checkField(input, true)) fieldsOk = false; });
+      if (!fieldsOk) { var bad = f.querySelector('[aria-invalid="true"]'); if (bad) bad.focus(); return; }
       if (!f.reportValidity()) return;
       var btn = f.querySelector('[type=submit]'), err = f.querySelector('.form-error');
       if (!err) { err = document.createElement('p'); err.className = 'form-error'; err.setAttribute('role', 'alert'); btn.after(err); }
