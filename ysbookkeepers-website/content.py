@@ -722,8 +722,8 @@ TESTIMONIALS = [  # Google reviews, 5 stars (first name + last initial, as reque
      "name": "Hyland Physiotherapy & Wellness", "role": ""},
     {"quote": "As an incorporated health practitioner, I wanted someone who understood how my practice operates. Pankaj helped me organize my income and expenses, explained salary versus dividends and made everything easy to understand. Very knowledgeable, patient and easy to talk to. Highly recommended for other practitioners!",
      "name": "Nitika K.", "role": "Incorporated health practitioner"},
-    {"quote": "I had my taxes filed through them and was very satisfied with their services. They answered all my queries clearly and in a timely manner, and handled my tax filing efficiently and accurately. Their process is straightforward, easy to understand, and very quick.",
-     "name": "Tejishwar N.", "role": "Personal tax client"},
+    {"quote": "When Pankaj and his team took over, my books were behind & filings were late, and I was paying penalties I didn’t even know about. They fixed all of it. Books are current every month, payroll runs properly, and deadlines are handled without me tracking them. Beyond the cleanup, he’s been a real asset to provide with clear financial guidance, and he made the entire process stress-free. I feel supported and confident knowing he’s in my corner. If you want someone trustworthy, efficient, and genuinely invested in your success, YS is the team to go to!",
+     "name": "Delta Helitech Ltd.", "role": ""},
 ]
 GOOGLE_REVIEWS_URL = "https://share.google/MuyhJFaY4E437xwu6"
 
