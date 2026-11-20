@@ -212,6 +212,20 @@
     });
   });
 
+  // Links like #faq-rmt-gst open that FAQ answer and scroll to it
+  function openFaqFromHash() {
+    var id = decodeURIComponent(location.hash.slice(1));
+    var d = id && document.getElementById(id);
+    if (d && d.tagName === 'DETAILS') {
+      d.open = true;
+      d.classList.add('flash');
+      setTimeout(function () { d.classList.remove('flash'); }, 1600);
+      d.scrollIntoView({ block: 'start' });
+    }
+  }
+  window.addEventListener('hashchange', openFaqFromHash);
+  openFaqFromHash();
+
   var y = document.getElementById('year');
   if (y) y.textContent = new Date().getFullYear();
 })();

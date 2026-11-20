@@ -639,3 +639,16 @@ table.addons { min-width: 0; }
 .field input[aria-invalid="true"] { border-color: #B42318; box-shadow: 0 0 0 3px rgba(180, 35, 24, .12); background: #fff; }
 .char-count { font-size: .75rem; color: var(--muted-foreground); text-align: right; margin: .1rem 0 0; }
 .char-count.near { color: #B42318; font-weight: 600; }
+
+/* Dated notice under the hero buttons (RMT Budget 2026 update) */
+.hero-notice { margin-top: 1.5rem; max-width: 34rem; background: var(--card); border: 1px solid var(--border); border-radius: 1rem; padding: 1rem 1.25rem; box-shadow: var(--shadow-xs); }
+.hero-notice-label { display: flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--heading); margin-bottom: .35rem; }
+.hero-notice-label::before { content: ""; width: .45rem; height: .45rem; border-radius: 50%; background: var(--brand); }
+.hero-notice p { font-size: .92rem; color: var(--body); }
+.hero-notice-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: .5rem 1rem; margin-top: .75rem; font-size: .8rem; }
+.hero-notice-foot a { display: inline-flex; align-items: center; gap: .35rem; font-weight: 600; color: var(--heading); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(31, 42, 36, .3); }
+.hero-notice-foot a:hover { color: var(--brand); text-decoration-color: var(--brand); }
+.hero-notice-foot span { color: var(--muted-foreground); }
+.faq details > div p + p { margin-top: .75rem; }
+.faq details[id] { scroll-margin-top: calc(var(--header-h) + 1.5rem); }
+.faq details.flash { box-shadow: 0 0 0 3px var(--ring); }
