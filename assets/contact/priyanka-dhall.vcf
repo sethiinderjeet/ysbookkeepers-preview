@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Dhall;Priyanka;;;
+FN:Priyanka Dhall\, CPA
+ORG:YS Tax & Advisory
+TITLE:Director of Tax & Advisory
+TEL;TYPE=WORK,VOICE:+1 778 503 8310
+EMAIL;TYPE=INTERNET,WORK:priyanka.tm@ystaxadvisory.ca
+URL:https://ystaxadvisory.ca
+ADR;TYPE=WORK:;;;Delta;British Columbia;;Canada
+END:VCARD

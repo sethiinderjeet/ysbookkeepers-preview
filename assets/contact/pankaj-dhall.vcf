@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Dhall;Pankaj;;;
+FN:Pankaj Dhall
+ORG:YS Tax & Advisory
+TITLE:Founder
+TEL;TYPE=WORK,VOICE:+1 778 551 3060
+EMAIL;TYPE=INTERNET,WORK:pankaj.rd@ystaxadvisory.ca
+URL:https://ystaxadvisory.ca
+ADR;TYPE=WORK:;;;Delta;British Columbia;;Canada
+END:VCARD

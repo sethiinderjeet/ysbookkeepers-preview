@@ -1,0 +1,28 @@
+# Plain-HTML website: nothing to build, Netlify serves these files as they are.
+[build]
+  publish = "."
+  command = ""
+
+# Old addresses -> new pages (keeps old links and Google results working)
+[[redirects]]
+  from = "/services/business-proposals-funding.html"
+  to = "/services/business-plans-funding.html"
+  status = 301
+[[redirects]]
+  from = "/resources/blog/gst-for-bc-health-practitioners.html"
+  to = "/resources/blog/do-rmts-charge-gst-bc.html"
+  status = 301
+[[redirects]]
+  from = "/resources/blog/should-your-health-practice-incorporate.html"
+  to = "/resources/blog/incorporating-health-practice-bc/"
+  status = 301
+[[redirects]]
+  from = "/resources/blog/tax-deductions-for-bc-rmts-and-physios.html"
+  to = "/resources/blog/"
+  status = 301
+
+# Images, styles and scripts can be cached by browsers
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=604800"
