@@ -181,8 +181,20 @@
       if (!err) { err = document.createElement('p'); err.className = 'form-error'; err.setAttribute('role', 'alert'); btn.after(err); }
       err.textContent = '';
       btn.disabled = true;
-      fetch(f.getAttribute('data-endpoint'), { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
-        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+      var send;
+      if (f.getAttribute('data-send') === 'netlify') {   // Netlify strips data-netlify from the live HTML, so use our own marker
+        // Netlify Forms: URL-encoded POST; Netlify stores it and emails the notification
+        send = fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(f)).toString()
+        }).then(function (r) { return { ok: r.ok }; });
+      } else {
+        // Python form mailer (/forms/send) when hosted on a Python server
+        send = fetch(f.getAttribute('data-endpoint'), { method: 'POST', body: new FormData(f), headers: { 'Accept': 'application/json' } })
+          .then(function (r) { return r.json().catch(function () { return { ok: false }; }); });
+      }
+      send
         .then(function (res) {
           if (!res.ok) throw new Error(res.error || '');
           var ok = f.parentElement.querySelector('.form-success');

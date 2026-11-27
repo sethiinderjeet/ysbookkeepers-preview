@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="/assets/css/styles.css?v=8f508451">
 
 </head>
 <body>
@@ -68,8 +68,8 @@
       </div></div></section>
 <section class="section-tight" style="padding-top:0"><div class="container container-narrow">
   <div class="form-card reveal">
-    <form class="form-grid" method="post" action="/forms/send" data-endpoint="/forms/send" novalidate>
-      <input type="hidden" name="form" value="referral"><div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off" maxlength="100"></label></div>
+    <form class="form-grid" name="referral" method="post" action="/refer-a-business.html?sent=1" data-netlify="true" netlify-honeypot="website" data-send="netlify" data-endpoint="/" novalidate>
+      <input type="hidden" name="form-name" value="referral"><input type="hidden" name="form" value="referral"><div class="hp" aria-hidden="true"><label>Leave this empty<input name="website" tabindex="-1" autocomplete="off" maxlength="100"></label></div>
       <div class="two"><div class="field"><label for="r-name">Your Name</label><input id="r-name" name="your_name" maxlength="100" autocomplete="name" required></div>
       <div class="field"><label for="r-email">Your Email</label><input id="r-email" type="email" name="your_email" maxlength="254" autocomplete="email" inputmode="email" data-validate="email" placeholder="name@example.com" aria-describedby="r-email-err" required><p class="field-error" id="r-email-err" aria-live="polite"></p></div></div>
       <div class="two"><div class="field"><label for="r-rname">Referral’s Name</label><input id="r-rname" name="referral_name" maxlength="100" required></div>
@@ -102,6 +102,6 @@
       <a href="/privacy-policy.html">Privacy Policy</a> <span aria-hidden="true">·</span> <a href="/terms-of-service.html">Terms of Service</a></p>
     <p>The content on this site is general information only and does not constitute professional accounting, tax, or legal advice. Please contact us directly for guidance specific to your situation.</p></div>
 </div></footer>
-<script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/main.js?v=95cfdadc" defer></script>
 </body>
 </html>
