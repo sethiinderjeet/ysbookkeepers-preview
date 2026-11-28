@@ -3,6 +3,88 @@
   publish = "."
   command = ""
 
+# Old website (ysbookkeepers.com, WordPress) -> new website. Active once its DNS points to Netlify.
+[[redirects]]
+  from = "https://ysbookkeepers.com/about-us/*"
+  to = "https://www.ystaxadvisory.ca/our-story.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://ysbookkeepers.com/services/*"
+  to = "https://www.ystaxadvisory.ca/services/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://ysbookkeepers.com/contact/*"
+  to = "https://www.ystaxadvisory.ca/contact.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://ysbookkeepers.com/*"
+  to = "https://www.ystaxadvisory.ca/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.ysbookkeepers.com/about-us/*"
+  to = "https://www.ystaxadvisory.ca/our-story.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.ysbookkeepers.com/services/*"
+  to = "https://www.ystaxadvisory.ca/services/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.ysbookkeepers.com/contact/*"
+  to = "https://www.ystaxadvisory.ca/contact.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "https://www.ysbookkeepers.com/*"
+  to = "https://www.ystaxadvisory.ca/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://ysbookkeepers.com/about-us/*"
+  to = "https://www.ystaxadvisory.ca/our-story.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://ysbookkeepers.com/services/*"
+  to = "https://www.ystaxadvisory.ca/services/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://ysbookkeepers.com/contact/*"
+  to = "https://www.ystaxadvisory.ca/contact.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://ysbookkeepers.com/*"
+  to = "https://www.ystaxadvisory.ca/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://www.ysbookkeepers.com/about-us/*"
+  to = "https://www.ystaxadvisory.ca/our-story.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://www.ysbookkeepers.com/services/*"
+  to = "https://www.ystaxadvisory.ca/services/"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://www.ysbookkeepers.com/contact/*"
+  to = "https://www.ystaxadvisory.ca/contact.html"
+  status = 301
+  force = true
+[[redirects]]
+  from = "http://www.ysbookkeepers.com/*"
+  to = "https://www.ystaxadvisory.ca/"
+  status = 301
+  force = true
+
 # Old addresses -> new pages (keeps old links and Google results working)
 [[redirects]]
   from = "/services/business-proposals-funding.html"
